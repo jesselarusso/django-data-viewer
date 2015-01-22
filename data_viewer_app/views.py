@@ -10,12 +10,12 @@ from django.http import JsonResponse
 # ?query=abcdef&field=name
 def index(request):
 
-    # offset = request.GET.get('offset')
     # sort = request.GET.get('sort')
     # query = request.GET.get('query')
     # field = request.GET.get('field')
 
     data = load_json()
+    data = offset(request, data)
     data = limit(request, data)
 
     return JsonResponse({ 'colors': data })
@@ -24,6 +24,14 @@ def index(request):
 def load_json():
     data = json.load(open('colors.json'))
     return data['colorsArray']
+
+
+def offset(request, data):
+    offset = request.GET.get('offset')
+    if offset is not None:
+        return data[int(offset):len(data)]
+    else:
+        return data
 
 
 def limit(request, data):
