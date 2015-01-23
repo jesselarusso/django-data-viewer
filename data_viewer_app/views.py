@@ -2,45 +2,45 @@ import json
 from django.http import JsonResponse
 
 
-# /
-# ?limit=2
-# ?limit=2&offset=10
-# ?sort=-chrom
-# ?sort=+name
-# ?query=abcdef&field=name
+# Actions ---------------------------------------------------------------------
+
+# GET '/data'
 def index(request):
     data = load_json()
-    data = offset(request, data)
-    data = limit(request, data)
-    data = sort(request, data)
-
-    # query = request.GET.get('query')
-    # field = request.GET.get('field')
-
+    data = filter_query(request, data)
+    data = filter_offset(request, data)
+    data = filter_limit(request, data)
+    data = filter_sort(request, data)
     return JsonResponse({ 'colors': data })
 
+# GET '/data?query=abcdef&field=name'
+def filter_query(request, data):
+    query = request.GET.get('query')
+    field = request.GET.get('field')
+    if query is not None or field is not None:
+        return filter((lambda item: item[field] == query), data)
+    else:
+        return data
 
-def load_json():
-    data = json.load(open('colors.json'))
-    return data['colorsArray']
-
-
-def offset(request, data):
+# GET '/data?offset=10'
+def filter_offset(request, data):
     param = request.GET.get('offset')
     if param is not None:
         return data[int(param):len(data)]
     else:
         return data
 
-
-def limit(request, data):
+# GET '/data?limit=2'
+def filter_limit(request, data):
     param = request.GET.get('limit')
     if param is not None:
         return data[:int(param)]
     else:
         return data
 
-def sort(request, data):
+# GET '/data?sort=-chrom'
+# GET '/data?sort=+name'
+def filter_sort(request, data):
     param = request.GET.get('sort')
     if param is not None:
         direction = param[0]
@@ -49,3 +49,10 @@ def sort(request, data):
         # return sorted array
     else:
         return data
+
+
+# Helpers ---------------------------------------------------------------------
+
+def load_json():
+    data = json.load(open('colors.json'))
+    return data['colorsArray']
