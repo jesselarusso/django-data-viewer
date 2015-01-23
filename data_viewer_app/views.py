@@ -1,5 +1,7 @@
 import json
 from django.http import JsonResponse
+from django.http import HttpResponse
+from django.template import RequestContext, loader
 
 
 # Actions ---------------------------------------------------------------------
@@ -11,9 +13,13 @@ def index(request):
     data = filter_offset(request, data)
     data = filter_limit(request, data)
     data = filter_sort(request, data)
-    return JsonResponse({ 'colors': data })
+    # return JsonResponse({ 'colors': data })
+    template = loader.get_template('data_viewer_app/index.html')
+    context = RequestContext(request, { 'data': data })
+    return HttpResponse(template.render(context))
 
 # GET '/data?query=abcdef&field=name'
+# Expect JSON response
 def filter_query(request, data):
     query = request.GET.get('query')
     field = request.GET.get('field')
@@ -23,6 +29,7 @@ def filter_query(request, data):
         return data
 
 # GET '/data?offset=10'
+# Expect JSON response
 def filter_offset(request, data):
     param = request.GET.get('offset')
     if param is not None:
@@ -31,6 +38,7 @@ def filter_offset(request, data):
         return data
 
 # GET '/data?limit=2'
+# Expect JSON response
 def filter_limit(request, data):
     param = request.GET.get('limit')
     if param is not None:
@@ -40,6 +48,7 @@ def filter_limit(request, data):
 
 # GET '/data?sort=-chrom'
 # GET '/data?sort=+name'
+# Expect JSON response
 def filter_sort(request, data):
     param = request.GET.get('sort')
     if param is not None:

@@ -1,0 +1,9 @@
+{% if data %}
+    <ul>
+    {% for item in data %}
+        <li>{{ item.colorName }}</li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No data.</p>
+{% endif %}
