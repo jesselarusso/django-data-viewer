@@ -1,22 +1,19 @@
 import json
 from django.http import JsonResponse
-from django.http import HttpResponse
-from django.template import RequestContext, loader
+from django.shortcuts import render
 
 
 # Actions ---------------------------------------------------------------------
 
 # GET '/data'
+# Expect HTML response
 def index(request):
     data = load_json()
     data = filter_query(request, data)
     data = filter_offset(request, data)
     data = filter_limit(request, data)
     data = filter_sort(request, data)
-    # return JsonResponse({ 'colors': data })
-    template = loader.get_template('data_viewer_app/index.html')
-    context = RequestContext(request, { 'data': data })
-    return HttpResponse(template.render(context))
+    return render(request, 'data_viewer_app/index.html', { 'data': data })
 
 # GET '/data?query=abcdef&field=name'
 # Expect JSON response
