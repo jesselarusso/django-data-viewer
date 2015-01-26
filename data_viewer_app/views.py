@@ -9,11 +9,11 @@ from django.shortcuts import render
 # Expect HTML response
 def index(request):
     data = load_json()
-    data = filter_query(request, data)
-    data = filter_offset(request, data)
+    # data = filter_query(request, data)
+    # data = filter_offset(request, data)
     data = filter_limit(request, data)
-    data = filter_sort(request, data)
-    return render(request, 'data_viewer_app/index.html', { 'data': data })
+    # data = filter_sort(request, data)
+    return render(request, 'data_viewer_app/data.html', { 'data': data })
 
 # GET '/data?query=abcdef&field=name'
 # Expect JSON response
@@ -60,5 +60,5 @@ def filter_sort(request, data):
 # Helpers ---------------------------------------------------------------------
 
 def load_json():
-    data = json.load(open('colors.json'))
-    return data['colorsArray']
+    data = json.load(open('refGene.json'))
+    return data['refGene']

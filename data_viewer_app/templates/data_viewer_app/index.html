@@ -1,9 +1,13 @@
-{% if data %}
-    <ul>
-    {% for item in data %}
-        <li>{{ item.colorName }}</li>
-    {% endfor %}
-    </ul>
-{% else %}
-    <p>No data.</p>
-{% endif %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+  <title>Data</title>
+</head>
+
+<body>
+  <div id="content">
+    {% block content %}{% endblock %}
+  </div>
+</body>
+</html>

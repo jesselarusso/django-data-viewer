@@ -1,0 +1,39 @@
+{% extends "data_viewer_app/index.html" %}
+
+{% block content %}
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-8">
+        <h2>Results</h2>
+
+        {% if data %}
+          <table class="table table-striped">
+            <thead>
+              <th class="col-md-3">Chrom</th>
+              <th class="col-md-3">Name</th>
+              <th class="col-md-3">txStart</th>
+              <th class="col-md-3">txEnd</th>
+            </thead>
+
+            <tbody>
+              {% for item in data %}
+                <tr>
+                  <td>{{item.chrom}}</td>
+                  <td>{{item.name}}</td>
+                  <td>{{item.txStart}}</td>
+                  <td>{{item.txEnd}}</td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        {% else %}
+          <p>No data.</p>
+        {% endif %}
+      </div>
+
+      <div class="col-md-4">
+        <!-- i dont know, help text? -->
+      </div>
+    </div>
+  </div>
+{% endblock %}
