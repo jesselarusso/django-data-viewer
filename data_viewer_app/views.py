@@ -9,10 +9,10 @@ from django.shortcuts import render
 # Expect HTML response
 def index(request):
     data = load_json()
-    # data = filter_query(request, data)
-    # data = filter_offset(request, data)
+    data = filter_query(request, data)
+    data = filter_offset(request, data)
     data = filter_limit(request, data)
-    # data = filter_sort(request, data)
+    data = filter_sort(request, data)
     return render(request, 'data_viewer_app/data.html', { 'data': data })
 
 # GET '/data?query=abcdef&field=name'
