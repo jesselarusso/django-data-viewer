@@ -9,11 +9,14 @@ from django.shortcuts import render
 # Expect HTML response
 def index(request):
     data = load_json()
+    count = len(data)
     data = filter_query(request, data)
     data = filter_offset(request, data)
+    # data = filter_page(request, data)
     data = filter_limit(request, data)
     data = filter_sort(request, data)
-    return render(request, 'data_viewer_app/data.html', { 'data': data })
+    data = { 'results': data, 'count': count }
+    return render(request, 'data_viewer_app/data.html', data)
 
 # GET '/data?query=abcdef&field=name'
 # Expect JSON response
@@ -31,6 +34,15 @@ def filter_offset(request, data):
     param = request.GET.get('offset')
     if param is not None:
         return data[int(param):len(data)]
+    else:
+        return data
+
+# GET '/data?page=5
+# Expect JSON response
+def filter_page(request, data):
+    param = request.GET.get('limit')
+    if param is not None:
+        return data[:int(param)]
     else:
         return data
 

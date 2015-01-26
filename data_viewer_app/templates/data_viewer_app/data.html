@@ -6,7 +6,7 @@
       <div class="col-md-8">
         <h2>Results</h2>
 
-        {% if data %}
+        {% if results %}
           <table class="table table-striped">
             <thead>
               <th class="col-md-3">Chrom</th>
@@ -16,7 +16,7 @@
             </thead>
 
             <tbody>
-              {% for item in data %}
+              {% for item in results %}
                 <tr>
                   <td>{{item.chrom}}</td>
                   <td>{{item.name}}</td>
@@ -36,4 +36,28 @@
       </div>
     </div>
   </div>
+{% endblock %}
+
+{% block pagination %}
+  {% if results %}
+    <nav>
+      <ul class="pagination" data-length="{{ count }}">
+        <li>
+          <a href="#" aria-label="Previous">
+            <span aria-hidden="true">&lt;&lt;</span>
+          </a>
+        </li>
+        <li><a href="#">&lt;</a></li>
+
+        <li><a href="#">Current page is ...</a></li>
+
+        <li><a href="#">&gt;</a></li>
+        <li>
+          <a href="#" aria-label="Next">
+            <span aria-hidden="true">&gt;&gt;</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+  {% endif %}
 {% endblock %}

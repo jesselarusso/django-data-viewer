@@ -1,13 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
   <title>Data</title>
+
+  <link rel="stylesheet" href="/static/bootstrap-3.2.2.min.css">
+  <link rel="stylesheet" href="/static/application.css">
+  <script src="/static/jquery-2.1.3.min.js"></script>
+  <script src="/static/jquery.simplePagination.js"></script>
+  <script src="/static/application.js"></script>
 </head>
 
 <body>
   <div id="content">
     {% block content %}{% endblock %}
+  </div>
+
+  <div id="pagination">
+    {% block pagination %}{% endblock %}
   </div>
 </body>
 </html>
