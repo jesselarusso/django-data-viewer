@@ -32,7 +32,7 @@ App.Loader = function() {
   var switchContent = function(json) {
     globals.$tableBody.empty()
     json.results.forEach(function(item) {
-      globals.$tableBody.append(rowTemplate(item));
+      $(rowTemplate(item)).hide().appendTo(globals.$tableBody).fadeIn(200);
     });
   };
 
