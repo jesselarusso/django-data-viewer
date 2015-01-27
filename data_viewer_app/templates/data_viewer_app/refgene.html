@@ -4,7 +4,7 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col-md-8">
-        <h2>Results</h2>
+        <h2>Results:</h2>
 
         {% if results %}
           <table id="results-table" class="table table-striped">
@@ -32,7 +32,7 @@
       </div>
 
       <div class="col-md-4">
-        <!-- i dont know, help text? -->
+
       </div>
     </div>
   </div>
@@ -42,11 +42,6 @@
   {% if results %}
     <nav>
       <ul class="pagination" id="pag-container" data-count="{{ count }}">
-        <li><a id="pag-start" href="javascript:void(0)"><span>&lt;&lt;</span></a></li>
-        <li><a id="pag-prev" href="javascript:void(0)"><span>&lt;</span></a></li>
-        <li><span id="pag-current">&nbsp;</span></li>
-        <li><a id="pag-next" href="javascript:void(0)"><span>&gt;</span></a></li>
-        <li><a id="pag-end" href="javascript:void(0)"><span>&gt;&gt;</span></a></li>
       </ul>
     </nav>
   {% endif %}

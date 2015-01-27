@@ -14,12 +14,13 @@ def index(request):
     data = filter_offset(request, data)
     data = filter_limit(request, data)
     data = filter_sort(request, data)
-    data = { 'results': data, 'count': count }
+    response = { 'results': data, 'count': count, 'results_count': len(data) }
+    print('sending back ->', response)
 
     if request.is_ajax():
-        return JsonResponse(data)
+        return JsonResponse(response)
     else:
-        return render(request, 'data_viewer_app/refgene.html', data)
+        return render(request, 'data_viewer_app/refgene.html', response)
 
 # GET '/refgene?query=abcdef&field=name'
 # Expect JSON response
@@ -44,6 +45,10 @@ def filter_offset(request, data):
 # Expect JSON response
 def filter_limit(request, data):
     param = request.GET.get('limit')
+
+    if not request.is_ajax() and param is None:
+        param = '15'
+
     if param is not None:
         return data[:int(param)]
     else:
