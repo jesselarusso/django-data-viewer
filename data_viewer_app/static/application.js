@@ -1,3 +1,6 @@
+var App = App || {};
+
 $(function() {
-  console.log('hi');
+  var pagination = new App.Pagination;
+  pagination.init();
 });

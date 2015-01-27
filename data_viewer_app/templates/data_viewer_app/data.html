@@ -41,22 +41,12 @@
 {% block pagination %}
   {% if results %}
     <nav>
-      <ul class="pagination" data-length="{{ count }}">
-        <li>
-          <a href="#" aria-label="Previous">
-            <span aria-hidden="true">&lt;&lt;</span>
-          </a>
-        </li>
-        <li><a href="#">&lt;</a></li>
-
-        <li><a href="#">Current page is ...</a></li>
-
-        <li><a href="#">&gt;</a></li>
-        <li>
-          <a href="#" aria-label="Next">
-            <span aria-hidden="true">&gt;&gt;</span>
-          </a>
-        </li>
+      <ul class="pagination" id="pag-container" data-count="{{ count }}">
+        <li><a id="pag-start" href="javascript:void(0)"><span>&lt;&lt;</span></a></li>
+        <li><a id="pag-prev" href="javascript:void(0)"><span>&lt;</span></a></li>
+        <li><span id="pag-current">&nbsp;</span></li>
+        <li><a id="pag-next" href="javascript:void(0)"><span>&gt;</span></a></li>
+        <li><a id="pag-end" href="javascript:void(0)"><span>&gt;&gt;</span></a></li>
       </ul>
     </nav>
   {% endif %}
