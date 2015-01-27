@@ -24,7 +24,7 @@ App.Pagination = function() {
     globals.limit = parseInt(getQueryVariable('limit') || globals.rowCount);
     globals.offset = parseInt(getQueryVariable('offset')) || 0;
     globals.pageCount = Math.ceil(globals.rowCount / globals.limit);
-    globals.currentPage = Math.ceil((globals.offset / globals.limit) + 0.0001);
+    globals.currentPage = calculateCurrentPage()
   };
 
   var setBindings = function() {
@@ -46,26 +46,37 @@ App.Pagination = function() {
       globals.$startLink.parent('li').addClass('active')
       globals.$prevLink.parent('li').addClass('active')
     } else {
-      globals.$startLink.on('click', function() { goToPage(1) });
-      globals.$prevLink.on('click', function() { goToPage(globals.currentPage - 1) });
+      globals.$startLink.on('click', function() { loadPage(1) });
+      globals.$prevLink.on('click', function() {
+        loadPage(globals.currentPage - 1)
+      });
     }
 
     if (globals.currentPage == globals.pageCount) {
       globals.$nextLink.parent('li').addClass('active')
       globals.$endLink.parent('li').addClass('active')
     } else {
-      globals.$nextLink.on('click', function() { goToPage(globals.currentPage + 1) });
-      globals.$endLink.on('click', function() { goToPage(globals.pageCount) });
+      globals.$nextLink.on('click', function() {
+        loadPage(globals.currentPage + 1)
+      });
+      globals.$endLink.on('click', function() { loadPage(globals.pageCount) });
     }
   }
 
 
-  // Navigation
+  // AJAX
   // --------------------------------------------------------------------------
-  var goToPage = function(page_num) {
-    var new_offset = (page_num - 1) * globals.limit
-    var url = '/data?limit=' + globals.limit + '&offset=' + new_offset
-    console.log('going to', url)
+  var loadPage = function(page_num) {
+    globals.offset = (page_num - 1) * globals.limit;
+    globals.currentPage = calculateCurrentPage()
+    var uri = '?limit=' + globals.limit + '&offset=' + globals.offset;
+    globals.$pagLinks.off('click')
+
+    $.get(uri, function(data) {
+      App.loader.switchContent(data);
+      setValues()
+      bindPagLinks()
+    });
   };
 
 
@@ -79,6 +90,10 @@ App.Pagination = function() {
       if (pair[0] == variable) { return pair[1]; }
     }
     return false;
+  }
+
+  var calculateCurrentPage = function() {
+    return Math.ceil((globals.offset / globals.limit) + 0.0001);
   }
 
 
