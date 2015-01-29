@@ -7,14 +7,14 @@
 - Start the server `python manage.py runserver`
 
 ## Checklist
-(x) Write script to convert data from a mysql db to a json file
-(x) Build a list view in django for the data
-(x) Build an endpoints for the data that allows for pagination
-(x) Build an endpoints for the data that allows for querying
-(x) Implement pagination on the front end
-( ) Search box
-( ) Multiple css files
-( ) Sorting
+- (x) Write script to convert data from a mysql db to a json file
+- (x) Build a list view in django for the data
+- (x) Build an endpoints for the data that allows for pagination
+- (x) Build an endpoints for the data that allows for querying
+- (x) Implement pagination on the front end
+- ( ) Search box
+- ( ) Multiple css files
+- ( ) Sorting
 
 ## Django endpoints handle querying and pagination
 - Pagination: `/refgene/data/?offset=20000&limit=15`
