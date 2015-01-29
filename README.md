@@ -5,6 +5,7 @@
 - Pull down the repository
 - Make sure you have python and django installed
 - Start the server `python manage.py runserver`
+- Navigate to [localhost:8000/refgene](localhost:8000/refgene)
 
 ## Checklist
 - (x) Write script to convert data from a mysql db to a json file
